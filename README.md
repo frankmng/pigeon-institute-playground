@@ -19,11 +19,11 @@ After the one-time account setup, an editor never needs to open GitHub, Cloudfla
 
 These become final after the account connection steps are complete.
 
-- Public website: `https://pigeon-institute-playground.<cloudflare-subdomain>.workers.dev/`
-- CMS: `https://pigeon-institute-playground.<cloudflare-subdomain>.workers.dev/admin/`
+- Public website: `https://pigeon-institute-playground.pigeon-institute-playground.workers.dev/`
+- CMS: `https://pigeon-institute-playground.pigeon-institute-playground.workers.dev/admin/`
 - GitHub repository: `https://github.com/frankmng/pigeon-institute-playground`
 - Cloudflare Worker: `pigeon-institute-playground`
-- Sveltia OAuth Worker: `https://pigeon-institute-auth.<cloudflare-subdomain>.workers.dev/`
+- Sveltia OAuth Worker: `https://pigeon-institute-auth.pigeon-institute-playground.workers.dev/`
 
 ## Normal Editor Workflow
 
@@ -97,7 +97,7 @@ Deploy the official [Sveltia CMS Authenticator](https://github.com/sveltia/svelt
 In GitHub, create an OAuth App with:
 
 - Homepage URL: the deployed public website URL
-- Authorization callback URL: `https://pigeon-institute-auth.<cloudflare-subdomain>.workers.dev/callback`
+- Authorization callback URL: `https://pigeon-institute-auth.pigeon-institute-playground.workers.dev/callback`
 
 In the authenticator Worker, configure:
 
@@ -105,7 +105,7 @@ In the authenticator Worker, configure:
 - `GITHUB_CLIENT_SECRET` as an encrypted secret — never commit or paste it into this project
 - `ALLOWED_DOMAINS` as the website hostname only, without `https://`
 
-Finally, replace the placeholder `backend.base_url`, `site_url`, and `display_url` in `public/admin/config.yml` and the placeholder `site` in `astro.config.mjs`, then push. OAuth-only login is already enforced with `auth_methods: [oauth]`.
+The deployed URLs are already configured in `public/admin/config.yml` and `astro.config.mjs`. OAuth-only login is enforced with `auth_methods: [oauth]`.
 
 ## Recovery
 

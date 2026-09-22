@@ -1,12 +1,12 @@
-site_url: https://pigeon-institute-playground.YOUR-SUBDOMAIN.workers.dev
-display_url: https://pigeon-institute-playground.YOUR-SUBDOMAIN.workers.dev
+site_url: https://pigeon-institute-playground.pigeon-institute-playground.workers.dev
+display_url: https://pigeon-institute-playground.pigeon-institute-playground.workers.dev
 logo_url: /favicon.svg
 
 backend:
   name: github
   repo: frankmng/pigeon-institute-playground
   branch: main
-  base_url: https://pigeon-institute-auth.YOUR-SUBDOMAIN.workers.dev
+  base_url: https://pigeon-institute-auth.pigeon-institute-playground.workers.dev
   auth_methods: [oauth]
   commit_messages:
     create: 'Publish {{collection}} “{{slug}}”'

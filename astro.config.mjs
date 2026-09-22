@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://pigeon-institute-playground.YOUR-SUBDOMAIN.workers.dev',
+  site: 'https://pigeon-institute-playground.pigeon-institute-playground.workers.dev',
   output: 'static',
   trailingSlash: 'always',
 });
