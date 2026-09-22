@@ -1,5 +1,5 @@
 ---
-title: Crumb Detection Reaches 99.9% Accuracy
+title: Crumb Detection Reaches 99.7% Accuracy
 date: 2026-09-11
 category: Research
 summary: A new benchmark confirms near-total identification of viable baked-goods fragments across complex pavement conditions.
