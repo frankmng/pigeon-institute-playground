@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib';
+
+const { update, featured = false } = Astro.props as {
+  update: CollectionEntry<'updates'>;
+  featured?: boolean;
+};
+---
+
+<article class:list={['update-card', { featured }]}> 
+  <a class="update-image-link" href={`/updates/${update.id}/`} aria-label={`Read ${update.data.title}`}>
+    <img src={update.data.heroImage} alt="" loading={featured ? 'eager' : 'lazy'} />
+  </a>
+  <div class="update-card-copy">
+    <div class="update-meta">
+      <span>{update.data.category}</span>
+      <time datetime={update.data.date.toISOString()}>{formatDate(update.data.date)}</time>
+    </div>
+    <h2><a href={`/updates/${update.id}/`}>{update.data.title}</a></h2>
+    <p>{update.data.summary}</p>
+    <a class="text-link" href={`/updates/${update.id}/`}>Read update <span aria-hidden="true">↗</span></a>
+  </div>
+</article>

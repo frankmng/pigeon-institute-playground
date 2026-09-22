@@ -1,0 +1,15 @@
+---
+const { current = '' } = Astro.props;
+---
+
+<header class="site-header">
+  <a class="wordmark" href="/" aria-label="The Pigeon Institute home">
+    <span class="mark" aria-hidden="true">P</span>
+    <span>The Pigeon Institute</span>
+  </a>
+  <nav aria-label="Primary navigation">
+    <a class:list={[{ active: current === 'updates' }]} href="/updates/">Updates</a>
+    <a class:list={[{ active: current === 'about' }]} href="/about/">About</a>
+    <a class="admin-link" href="/admin/">Editor <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>

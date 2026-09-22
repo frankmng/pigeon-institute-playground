@@ -1,0 +1,173 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import UpdateCard from '../components/UpdateCard.astro';
+
+const updates = (await getCollection('updates')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const technologies = [
+  ['01', 'Urban Navigation', 'A city-scale spatial model shaped by avenues, air currents, and an unwavering sense of where lunch happened.'],
+  ['02', 'Adaptive Crumb Detection', 'Multispectral ground analysis identifies viable carbohydrates in conditions previously described as “a mess.”'],
+  ['03', 'Autonomous Landing', 'Continuous micro-adjustments deliver confident rooftop, railing, and statue arrival—without infrastructure.'],
+  ['04', 'Pedestrian Avoidance', 'Predictive gait analysis maintains distance from shoes while preserving complete sidewalk access.'],
+  ['05', 'Rooftop Networking', 'A resilient, decentralized presence layer connecting the city one parapet at a time.'],
+];
+---
+
+<BaseLayout image="/uploads/pigeon-one-hero.png">
+  <section class="hero">
+    <img src="/uploads/pigeon-one-hero.png" alt="Pigeon One overlooking the city at dawn" fetchpriority="high" />
+    <div class="hero-shade"></div>
+    <div class="hero-copy shell">
+      <p class="hero-label">Introducing Pigeon One</p>
+      <h1 class="display">Flight,<br />reconsidered.</h1>
+      <p class="hero-note">Designed for cities. Born for the sky.</p>
+    </div>
+    <a class="scroll-cue" href="#pigeon-one">Explore <span aria-hidden="true">↓</span></a>
+  </section>
+
+  <section class="manifesto shell" id="pigeon-one" data-reveal>
+    <span class="eyebrow">Pigeon One</span>
+    <p>Not a new bird.<br /><em>A new standard.</em></p>
+    <div class="manifesto-foot">
+      <span>01 / 05</span>
+      <p>Millions of years of field testing meet a research program with no practical reason to exist.</p>
+    </div>
+  </section>
+
+  <section class="systems shell">
+    <div class="systems-heading" data-reveal>
+      <span class="eyebrow">Core systems</span>
+      <h2 class="section-title">Intelligence,<br />at street level.</h2>
+    </div>
+    <div class="technology-list">
+      {technologies.map(([number, title, body]) => (
+        <article data-reveal>
+          <span>{number}</span>
+          <h3>{title}</h3>
+          <p>{body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="precision">
+    <div class="precision-image">
+      <img src="/uploads/sidewalk-trials.png" alt="Pigeon One approaching a crumb during a sidewalk field trial" loading="lazy" />
+    </div>
+    <div class="precision-copy" data-reveal>
+      <span class="eyebrow">Sidewalk intelligence</span>
+      <h2>Every step is a calculation.</h2>
+      <p>Real-time obstacle modeling. Opportunistic nutrition. A walking motion that remains, despite substantial investment, unmistakably pigeon.</p>
+    </div>
+  </section>
+
+  <section class="metrics shell" aria-label="Pigeon One performance statistics">
+    <div class="metrics-intro" data-reveal>
+      <span class="eyebrow">Measured performance</span>
+      <p>Numbers selected with the same rigor as the questions nobody asked us to answer.</p>
+    </div>
+    <div class="metric-grid">
+      <article data-reveal><strong>99.7<small>%</small></strong><span>crumb detection<br />accuracy</span></article>
+      <article data-reveal><strong>18<small> ms</small></strong><span>sidewalk<br />response time</span></article>
+      <article data-reveal><strong>360<small>°</small></strong><span>urban<br />awareness</span></article>
+      <article data-reveal><strong class="word">Unlimited</strong><span>loitering<br />endurance</span></article>
+    </div>
+  </section>
+
+  <section class="network">
+    <img src="/uploads/rooftop-network.png" alt="Four pigeons forming a rooftop network at dusk" loading="lazy" />
+    <div class="network-copy shell" data-reveal>
+      <span class="eyebrow">Rooftop Networking</span>
+      <h2 class="section-title">Always present.<br />Rarely invited.</h2>
+      <p>A distributed urban network built for observation, coordination, and standing on buildings for a very long time.</p>
+    </div>
+  </section>
+
+  {updates[0] && (
+    <section class="latest shell">
+      <div class="latest-heading"><span class="eyebrow">Latest from the institute</span><a href="/updates/">View all updates →</a></div>
+      <UpdateCard update={updates[0]} featured />
+    </section>
+  )}
+
+  <section class="closing shell" data-reveal>
+    <span class="eyebrow">The work continues</span>
+    <h2>Twenty million years of iteration.</h2>
+    <p>We’re just getting started.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { position: relative; min-height: 100svh; display: grid; align-items: end; overflow: hidden; }
+  .hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; animation: settle 1.8s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.24) 56%, rgba(0,0,0,.1)), linear-gradient(0deg, rgba(0,0,0,.6), transparent 50%); }
+  .hero-copy { position: relative; z-index: 1; padding-bottom: clamp(72px, 9vw, 130px); }
+  .hero-label { margin: 0 0 28px; text-transform: uppercase; letter-spacing: .18em; font-size: .7rem; }
+  .hero-note { margin: 28px 0 0; font-size: 1rem; color: rgba(255,255,255,.72); }
+  .scroll-cue { position: absolute; z-index: 2; right: 36px; bottom: 38px; display: flex; gap: 18px; font-size: .7rem; text-transform: uppercase; letter-spacing: .14em; }
+  @keyframes settle { from { opacity: .5; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }
+
+  .manifesto { padding-block: 180px; }
+  .manifesto > p { margin: 78px 0; font-size: clamp(3.2rem, 8vw, 8.8rem); font-weight: 420; letter-spacing: -.065em; line-height: .95; }
+  .manifesto em { color: #6d6d6a; font-style: normal; }
+  .manifesto-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding-top: 30px; border-top: 1px solid var(--line); }
+  .manifesto-foot > span { color: var(--muted); font-size: .7rem; letter-spacing: .13em; }
+  .manifesto-foot p { margin: 0; max-width: 520px; color: #a6a6a1; font-size: 1.1rem; }
+
+  .systems { padding: 80px 0 180px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 8vw; }
+  .systems-heading { position: sticky; top: 80px; align-self: start; }
+  .systems-heading .eyebrow { margin-bottom: 42px; color: var(--muted); }
+  .technology-list article { display: grid; grid-template-columns: 60px 1fr; gap: 8px 24px; padding: 36px 0 42px; border-top: 1px solid var(--line); }
+  .technology-list article > span { grid-row: 1 / 3; color: #777; font-size: .72rem; }
+  .technology-list h3 { margin: 0; font-size: clamp(1.65rem, 3vw, 3rem); font-weight: 450; letter-spacing: -.045em; }
+  .technology-list p { margin: 12px 0 0; color: #999; max-width: 560px; line-height: 1.7; }
+
+  .precision { display: grid; grid-template-columns: 1.25fr .75fr; min-height: 760px; background: #ecece7; color: #0b0b0b; }
+  .precision-image { overflow: hidden; }
+  .precision-image img { width: 100%; height: 100%; object-fit: cover; }
+  .precision-copy { align-self: center; padding: clamp(40px, 7vw, 100px); }
+  .precision-copy h2 { margin: 42px 0 28px; font-size: clamp(3rem, 5.5vw, 6rem); font-weight: 440; line-height: .94; letter-spacing: -.06em; }
+  .precision-copy p { max-width: 490px; color: #5d5d59; font-size: 1.1rem; line-height: 1.7; }
+
+  .metrics { padding-block: 180px; }
+  .metrics-intro { display: flex; justify-content: space-between; gap: 40px; align-items: start; margin-bottom: 90px; }
+  .metrics-intro p { margin: 0; max-width: 430px; color: #989894; }
+  .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .metric-grid article { display: flex; min-height: 290px; padding: 36px; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .metric-grid strong { font-size: clamp(4rem, 9vw, 8rem); font-weight: 420; letter-spacing: -.075em; line-height: .85; }
+  .metric-grid strong.word { font-size: clamp(2.6rem, 6vw, 6rem); }
+  .metric-grid small { font-size: .35em; letter-spacing: -.02em; }
+  .metric-grid span { color: #9b9b96; font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; }
+
+  .network { position: relative; min-height: 92svh; display: flex; align-items: end; overflow: hidden; }
+  .network::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,.78), rgba(0,0,0,.08) 65%); }
+  .network > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .network-copy { position: relative; z-index: 1; padding-bottom: 90px; }
+  .network-copy h2 { margin: 38px 0 25px; }
+  .network-copy p { max-width: 540px; color: rgba(255,255,255,.7); font-size: 1.08rem; }
+
+  .latest { padding-block: 160px; }
+  .latest-heading { display: flex; justify-content: space-between; margin-bottom: 46px; color: var(--muted); font-size: .75rem; }
+  .closing { padding-block: 190px; text-align: center; }
+  .closing h2 { margin: 55px 0 10px; font-size: clamp(3.1rem, 7vw, 7.5rem); font-weight: 420; letter-spacing: -.065em; line-height: .94; }
+  .closing p { color: #777; font-size: clamp(1.5rem, 3vw, 3rem); letter-spacing: -.04em; }
+
+  @media (max-width: 800px) {
+    .hero > img { object-position: 62% center; }
+    .scroll-cue { display: none; }
+    .manifesto { padding-block: 120px; }
+    .manifesto-foot, .systems, .precision { grid-template-columns: 1fr; }
+    .systems { padding-bottom: 110px; }
+    .systems-heading { position: static; margin-bottom: 40px; }
+    .precision { min-height: 0; }
+    .precision-image { min-height: 62vw; }
+    .metrics { padding-block: 110px; }
+    .metrics-intro { flex-direction: column; }
+    .metric-grid { grid-template-columns: 1fr; }
+    .metric-grid article { min-height: 220px; }
+    .network { min-height: 78svh; }
+    .latest { padding-block: 110px; }
+    .latest-heading { align-items: end; gap: 30px; }
+    .closing { padding-block: 130px; }
+  }
+</style>

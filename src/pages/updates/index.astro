@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UpdateCard from '../../components/UpdateCard.astro';
+
+const updates = (await getCollection('updates')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Updates — The Pigeon Institute" description="Field reports, research notes, and announcements from The Pigeon Institute." current="updates">
+  <section class="page-intro shell">
+    <span class="eyebrow">Institute record</span>
+    <h1 class="display">Updates.</h1>
+    <p class="lede">Progress from the edge of urban aviation, reported with complete seriousness.</p>
+  </section>
+  <section class="updates-grid shell" aria-label="All updates">
+    {updates.map((update, index) => <UpdateCard update={update} featured={index === 0} />)}
+  </section>
+</BaseLayout>
+
+<style>
+  .updates-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 110px 28px; padding-bottom: 160px; }
+  .updates-grid :global(.update-card:first-child) { grid-column: 1 / -1; }
+  .updates-grid :global(.update-card:first-child .update-image-link) { aspect-ratio: 2 / 1; }
+  @media (max-width: 760px) {
+    .updates-grid { grid-template-columns: 1fr; gap: 80px; padding-bottom: 110px; }
+    .updates-grid :global(.update-card:first-child) { grid-column: auto; }
+    .updates-grid :global(.update-card:first-child .update-image-link) { aspect-ratio: 16 / 10; }
+  }
+</style>

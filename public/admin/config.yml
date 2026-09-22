@@ -1,0 +1,102 @@
+site_url: https://pigeon-institute-playground.YOUR-SUBDOMAIN.workers.dev
+display_url: https://pigeon-institute-playground.YOUR-SUBDOMAIN.workers.dev
+logo_url: /favicon.svg
+
+backend:
+  name: github
+  repo: frankmng/pigeon-institute-playground
+  branch: main
+  base_url: https://pigeon-institute-auth.YOUR-SUBDOMAIN.workers.dev
+  auth_methods: [oauth]
+  commit_messages:
+    create: 'Publish {{collection}} “{{slug}}”'
+    update: 'Update {{collection}} “{{slug}}”'
+    delete: 'Remove {{collection}} “{{slug}}”'
+    uploadMedia: 'Add editorial image “{{path}}”'
+    deleteMedia: 'Remove editorial image “{{path}}”'
+
+media_folder: /public/uploads
+public_folder: /uploads
+
+media_libraries:
+  all:
+    max_file_size: 12582912
+    slugify_filename: true
+    transformations:
+      raster_image:
+        format: webp
+        quality: 84
+        width: 2400
+        height: 2400
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+  trim: true
+  lowercase: true
+
+collections:
+  - name: updates
+    label: Updates
+    label_singular: Update
+    folder: /src/content/updates
+    create: true
+    delete: true
+    format: yaml-frontmatter
+    slug: '{{title}}'
+    summary: '{{title}} — {{date | date_format(`MMM D, YYYY`)}}'
+    sortable_fields: [date, title, category]
+    view_filters:
+      - label: Research
+        field: category
+        pattern: Research
+      - label: Field Notes
+        field: category
+        pattern: Field Notes
+      - label: Announcements
+        field: category
+        pattern: Announcement
+      - label: Pigeon One
+        field: category
+        pattern: Pigeon One
+    fields:
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Date
+        name: date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+        default: '{{now}}'
+        required: true
+      - label: Category
+        name: category
+        widget: select
+        options: [Research, Field Notes, Announcement, Pigeon One]
+        default: Field Notes
+        required: true
+      - label: Short Summary
+        name: summary
+        widget: text
+        hint: One or two sentences shown on the Updates page.
+        required: true
+      - label: Hero Photo
+        name: heroImage
+        widget: image
+        choose_url: false
+        required: true
+      - label: Article Content
+        name: body
+        widget: richtext
+        required: true
+      - label: Additional Photos
+        name: gallery
+        widget: image
+        multiple: true
+        min: 0
+        max: 8
+        required: false

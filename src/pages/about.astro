@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About — The Pigeon Institute" description="We solve humanity’s least urgent problems with unreasonable seriousness." current="about">
+  <section class="page-intro shell">
+    <span class="eyebrow">About the institute</span>
+    <h1 class="display">Unreasonable<br />seriousness.</h1>
+    <p class="lede">The Pigeon Institute exists to solve humanity’s least urgent problems with the methods, language, and capital intensity of a frontier research laboratory.</p>
+  </section>
+
+  <section class="about-image">
+    <img src="/uploads/rooftop-network.png" alt="The Institute’s rooftop research network at dusk" />
+  </section>
+
+  <section class="story shell">
+    <span class="eyebrow">Our mandate</span>
+    <div class="story-copy">
+      <h2>The city already had an operating system.</h2>
+      <p>We simply gave it a product roadmap.</p>
+      <div class="columns">
+        <p>For generations, the urban pigeon has navigated dense streets, evaluated distributed food resources, and occupied premium architectural surfaces without subscription fees, charging infrastructure, or a single firmware update.</p>
+        <p>We believe this achievement has been undervalued. Our researchers observe what pigeons were already going to do, assign the behavior a technical name, and publish a carefully typeset report.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="principles shell">
+    <article><span>01</span><h3>Observe closely.</h3><p>The breakthrough may be standing directly in front of your sandwich.</p></article>
+    <article><span>02</span><h3>Name precisely.</h3><p>“Hanging around” becomes Persistent Urban Presence Architecture.</p></article>
+    <article><span>03</span><h3>Deploy nowhere.</h3><p>The system is already live in every major city on Earth.</p></article>
+  </section>
+
+  <section class="mission shell">
+    <span class="eyebrow">Our mission</span>
+    <blockquote>To advance the boundary between what pigeons can do and what anyone needed them to do.</blockquote>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-image { height: min(72vw, 900px); overflow: hidden; }
+  .about-image img { width: 100%; height: 100%; object-fit: cover; }
+  .story { display: grid; grid-template-columns: .65fr 1.35fr; gap: 8vw; padding-block: 160px; }
+  .story > .eyebrow { align-self: start; color: #777; }
+  .story h2 { margin: 0; font-size: clamp(3rem, 7vw, 7.5rem); font-weight: 430; letter-spacing: -.065em; line-height: .92; }
+  .story-copy > p { margin: 20px 0 80px; color: #6f6f6b; font-size: clamp(1.8rem, 3vw, 3rem); letter-spacing: -.04em; }
+  .columns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; border-top: 1px solid var(--line); padding-top: 35px; }
+  .columns p { margin: 0; color: #aaa; line-height: 1.75; }
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .principles article { min-height: 380px; display: flex; flex-direction: column; padding: 34px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .principles article > span { color: #696965; font-size: .72rem; }
+  .principles h3 { margin: auto 0 20px; font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 450; letter-spacing: -.05em; }
+  .principles p { margin: 0; color: #8b8b87; }
+  .mission { padding-block: 190px; text-align: center; }
+  .mission blockquote { max-width: 1100px; margin: 60px auto 0; font-size: clamp(3rem, 7vw, 7.5rem); font-weight: 420; line-height: .94; letter-spacing: -.065em; }
+  @media (max-width: 760px) {
+    .story { grid-template-columns: 1fr; padding-block: 110px; }
+    .columns, .principles { grid-template-columns: 1fr; }
+    .principles article { min-height: 280px; }
+    .mission { padding-block: 120px; }
+  }
+</style>
