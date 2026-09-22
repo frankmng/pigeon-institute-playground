@@ -1,16 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import UpdateCard from '../components/UpdateCard.astro';
 
 const updates = (await getCollection('updates')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const technologies = [
-  ['01', 'Urban Navigation', 'A city-scale spatial model shaped by avenues, air currents, and an unwavering sense of where lunch happened.'],
-  ['02', 'Adaptive Crumb Detection', 'Multispectral ground analysis identifies viable carbohydrates in conditions previously described as “a mess.”'],
-  ['03', 'Autonomous Landing', 'Continuous micro-adjustments deliver confident rooftop, railing, and statue arrival—without infrastructure.'],
-  ['04', 'Pedestrian Avoidance', 'Predictive gait analysis maintains distance from shoes while preserving complete sidewalk access.'],
-  ['05', 'Rooftop Networking', 'A resilient, decentralized presence layer connecting the city one parapet at a time.'],
-];
+const home = await getEntry('pages', 'home');
+
+if (!home) {
+  throw new Error('Missing homepage content at src/content/pages/home.md');
+}
+
+const { coreSystems } = home.data;
+const [headlineLead, ...headlineRest] = coreSystems.headline.split(',');
+const headlineTail = headlineRest.join(',').trim();
 ---
 
 <BaseLayout image="/uploads/pigeon-one-hero.png">
@@ -36,15 +38,18 @@ const technologies = [
 
   <section class="systems shell">
     <div class="systems-heading" data-reveal>
-      <span class="eyebrow">Core systems</span>
-      <h2 class="section-title">Intelligence,<br />at street level.</h2>
+      <span class="eyebrow">{coreSystems.eyebrow}</span>
+      <h2 class="section-title">
+        {headlineLead}{headlineRest.length > 0 && ','}
+        {headlineTail && <><br />{headlineTail}</>}
+      </h2>
     </div>
     <div class="technology-list">
-      {technologies.map(([number, title, body]) => (
+      {coreSystems.systems.map((system, index) => (
         <article data-reveal>
-          <span>{number}</span>
-          <h3>{title}</h3>
-          <p>{body}</p>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <h3>{system.title}</h3>
+          <p>{system.description}</p>
         </article>
       ))}
     </div>

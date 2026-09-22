@@ -43,6 +43,7 @@ Uploaded photos are converted in the browser to WebP, limited to 2400 × 2400 pi
 src/pages/              public routes
 src/components/         shared site pieces
 src/layouts/            page shell and metadata
+src/content/pages/      CMS-managed singleton page content
 src/content/updates/    CMS-managed Markdown updates
 public/uploads/         CMS-managed images
 src/pages/admin.astro    Sveltia CMS entry page

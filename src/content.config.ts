@@ -14,4 +14,18 @@ const updates = defineCollection({
   }),
 });
 
-export const collections = { updates };
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
+  schema: z.object({
+    coreSystems: z.object({
+      eyebrow: z.string(),
+      headline: z.string(),
+      systems: z.array(z.object({
+        title: z.string(),
+        description: z.string(),
+      })).length(5),
+    }),
+  }),
+});
+
+export const collections = { pages, updates };
